@@ -1,0 +1,129 @@
+import java.util.Arrays;
+
+public class NQueens {
+
+    static final int N = 8;
+
+    // ================= BACKTRACKING APPROACH =================
+
+    static boolean isSafe(int[][] board, int row, int col) {
+
+        // Check left side of row
+        for (int i = 0; i < col; i++) {
+            if (board[row][i] == 1)
+                return false;
+        }
+
+        // Check upper diagonal
+        for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 1)
+                return false;
+        }
+
+        // Check lower diagonal
+        for (int i = row, j = col; i < N && j >= 0; i++, j--) {
+            if (board[i][j] == 1)
+                return false;
+        }
+
+        return true;
+    }
+
+    static boolean solveBacktracking(int[][] board, int col) {
+        if (col >= N)
+            return true;
+
+        for (int i = 0; i < N; i++) {
+            if (isSafe(board, i, col)) {
+                board[i][col] = 1;
+
+                if (solveBacktracking(board, col + 1))
+                    return true;
+
+                // BACKTRACK
+                board[i][col] = 0;
+            }
+        }
+        return false;
+    }
+
+    // ================= BRANCH & BOUND APPROACH =================
+
+    static boolean[] rowLookup = new boolean[N];
+    static boolean[] slashLookup = new boolean[2 * N - 1];
+    static boolean[] backslashLookup = new boolean[2 * N - 1];
+
+    static boolean solveBranchBound(int[][] board, int col) {
+        if (col >= N)
+            return true;
+
+        for (int i = 0; i < N; i++) {
+
+            if (!rowLookup[i] &&
+                !slashLookup[i + col] &&
+                !backslashLookup[i - col + N - 1]) {
+
+                // Place queen
+                board[i][col] = 1;
+                rowLookup[i] = true;
+                slashLookup[i + col] = true;
+                backslashLookup[i - col + N - 1] = true;
+
+                if (solveBranchBound(board, col + 1))
+                    return true;
+
+                // BACKTRACK
+                board[i][col] = 0;
+                rowLookup[i] = false;
+                slashLookup[i + col] = false;
+                backslashLookup[i - col + N - 1] = false;
+            }
+        }
+        return false;
+    }
+
+    // ================= PRINT FUNCTION =================
+
+    static void printSolution(int[][] board) {
+        for (int[] row : board) {
+            for (int cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    // ================= MAIN FUNCTION =================
+
+    public static void main(String[] args) {
+
+        // -------- BACKTRACKING --------
+        int[][] board1 = new int[N][N];
+        for (int[] row : board1)
+            Arrays.fill(row, 0);
+
+        System.out.println("Solution using Backtracking:\n");
+
+        if (solveBacktracking(board1, 0))
+            printSolution(board1);
+        else
+            System.out.println("No solution exists");
+
+        // -------- BRANCH & BOUND --------
+        int[][] board2 = new int[N][N];
+        for (int[] row : board2)
+            Arrays.fill(row, 0);
+
+        // Reset lookup arrays
+        Arrays.fill(rowLookup, false);
+        Arrays.fill(slashLookup, false);
+        Arrays.fill(backslashLookup, false);
+
+        System.out.println("\nSolution using Branch and Bound:\n");
+
+        if (solveBranchBound(board2, 0))
+            printSolution(board2);
+        else
+            System.out.println("No solution exists");
+    }
+}

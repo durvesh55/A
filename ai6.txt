@@ -1,0 +1,20 @@
+Title:- Implement any one of the following Expert System Employee performance evaluation
+import java.util.Scanner;
+public class EmployeeExpertSystem { public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.println("=== Employee Performance Evaluation System ==="); System.out.print("Rate Work Quality (1-5): ");
+int workQuality = sc.nextInt(); System.out.print("Rate Punctuality (1-5): "); int punctuality = sc.nextInt(); System.out.print("Rate Teamwork (1-5): "); int teamwork = sc.nextInt();
+System.out.print("Rate Communication (1-5): "); int communication = sc.nextInt();
+if (workQuality >= 4 && punctuality >= 4 && teamwork >= 4 && communication >= 4) { System.out.println("\nPerformance: Excellent Employee ");
+}
+else if (workQuality >= 3 && teamwork >= 3) { System.out.println("\nPerformance: Good Employee ");
+}
+else if (workQuality >= 2) { System.out.println("\nPerformance: Average Employee ");
+}
+ 
+else {
+System.out.println("\nPerformance: Needs Improvement ❗");
+}
+sc.close();
+}
+} 

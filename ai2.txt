@@ -1,0 +1,102 @@
+import java.util.*;
+
+class Node { char[][] board; int g, h;
+Node parent;
+
+public Node(char[][] board, int g) { this.board = new char[3][3];
+for (int i = 0; i < 3; i++) this.board[i] = board[i].clone();
+this.g = g;
+this.h = calculateHeuristic();
+}
+
+private int calculateHeuristic() {
+return countOpenLines('O') - countOpenLines('X');
+}
+
+private int countOpenLines(char player) { int count = 0;
+char opponent = (player == 'O') ? 'X' : 'O';
+
+// Rows & Columns
+for (int i = 0; i < 3; i++) {
+if (board[i][0] != opponent && board[i][1] != opponent && board[i][2] != opponent) count++;
+if (board[0][i] != opponent && board[1][i] != opponent && board[2][i] != opponent) count++;
+}
+
+// Diagonals
+if (board[0][0] != opponent && board[1][1] != opponent && board[2][2] != opponent) count++;
+if (board[0][2] != opponent && board[1][1] != opponent && board[2][0] != opponent) count++;
+
+return count;
+}
+
+public int f() { return g + h;
+}
+}
+
+public class TicTacToeAStar {
+ 
+static char[][] board = {
+{' ', ' ', ' '},
+{' ', ' ', ' '},
+{' ', ' ', ' '}
+};
+
+public static void main(String[] args) { Scanner sc = new Scanner(System.in);
+System.out.println("Enter 1 to start first, 2 for computer first:"); int choice = sc.nextInt();
+
+if (choice == 2) computerMove();
+
+while (true) { printBoard(); playerMove(sc);
+if (checkWin('X')) { printBoard();
+System.out.println("Player Wins!"); break;
+}
+if (isDraw()) { printBoard();
+System.out.println("Draw!"); break;
+}
+
+computerMove();
+if (checkWin('O')) { printBoard();
+System.out.println("Computer Wins!"); break;
+}
+}
+}
+
+static void computerMove() {
+int bestScore = Integer.MIN_VALUE; int row = -1, col = -1;
+
+for (int i = 0; i < 3; i++) { for (int j = 0; j < 3; j++) {
+if (board[i][j] == ' ') {
+board[i][j] = 'O';
+Node node = new Node(board, 1); int score = node.f();
+board[i][j] = ' ';
+if (score > bestScore) { bestScore = score; row = i;
+ 
+col = j;
+}
+}
+}
+}
+board[row][col] = 'O';
+}
+
+static void playerMove(Scanner sc) { System.out.println("Enter row and column (0-2):"); int r = sc.nextInt();
+int c = sc.nextInt(); board[r][c] = 'X';
+}
+
+static boolean checkWin(char p) { for (int i = 0; i < 3; i++)
+if ((board[i][0] == p && board[i][1] == p && board[i][2] == p) || (board[0][i] == p && board[1][i] == p && board[2][i] == p)) return true;
+
+return (board[0][0] == p && board[1][1] == p && board[2][2] == p) || (board[0][2] == p && board[1][1] == p && board[2][0] == p);
+}
+
+static boolean isDraw() { for (int i = 0; i < 3; i++)
+for (int j = 0; j < 3; j++) if (board[i][j] == ' ')
+return false; return true;
+}
+static void printBoard() { System.out.println("	");
+for (int i = 0; i < 3; i++) {
+System.out.println("| " + board[i][0] + " | " + board[i][1] + " | " + board[i][2] + " |");
+System.out.println("	");
+}
+}
+}
