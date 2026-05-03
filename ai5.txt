@@ -5,15 +5,15 @@ name = "Jarvis"
 weather = "sunny"
 mood = "sad"
 
-# List of questions chatbot can answer
+# Questions list
 questions = [
     "1. What is your name?",
     "2. How are you?",
     "3. What is today's weather?",
-    "Type 'exit' to stop the chatbot"
+    "Type 'exit' to stop"
 ]
 
-# Predefined responses
+# Responses
 responses = {
     "what's your name?": [
         f"My name is {name}",
@@ -29,24 +29,17 @@ responses = {
         f"I'm feeling {mood}",
         f"{mood}! what about you?"
     ],
-    "": [
-        "I didn't understand that",
-        "Can you try asking something else?"
-    ],
     "default": [
         "Sorry, I don't understand",
         "Please ask one of the listed questions"
     ]
 }
 
-# Function to get response
+# Get response
 def get_response(message):
-    if message in responses:
-        return random.choice(responses[message])
-    else:
-        return random.choice(responses["default"])
+    return random.choice(responses[message])
 
-# Function to map user input
+# Map user input
 def check_message(text):
     if "name" in text:
         return "what's your name?"
@@ -55,11 +48,10 @@ def check_message(text):
     elif "how are" in text:
         return "how are you?"
     else:
-        return ""
+        return "default"
 
 # Start chatbot
-print(" BOT: Hello! I can answer the following questions:\n")
-
+print("BOT: Hello! I can answer:\n")
 for q in questions:
     print(q)
 
@@ -73,20 +65,5 @@ while True:
         print("BOT: Goodbye!")
         break
 
-    mapped_text = check_message(user_input)
-    reply = get_response(mapped_text)
-
-    print("BOT:", reply)
-
-
-Start chatting...
-
-YOU: What is your name?
-BOT: You can call me Jarvis
-YOU: How are you?
-BOT: I am sad
-YOU: What is today's weather?
-BOT: The weather is sunny
-YOU: exit
-BOT: Goodbye!
-PS C:\Users\DURVE>
+    mapped = check_message(user_input)
+    print("BOT:", get_response(mapped))
