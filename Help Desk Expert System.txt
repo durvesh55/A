@@ -1,0 +1,16 @@
+% Help Desk Expert System
+
+problem(network) :-
+    write('Restart the router').
+
+problem(printer) :-
+    write('Check printer connection').
+
+problem(login) :-
+    write('Reset the password').
+
+start :-
+    write('--- Help Desk Expert System ---'), nl,
+    write('Example Queries:'), nl,
+    write('problem(network).'), nl,
+    write('problem(printer).'), nl.

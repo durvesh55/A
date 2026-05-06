@@ -1,0 +1,38 @@
+% Medical Expert System
+
+disease(flu) :-
+    fever,
+    cough,
+    headache.
+
+disease(cold) :-
+    cough,
+    sneezing.
+
+ask(Q) :-
+    write(Q),
+    write(' (yes/no): '),
+    read(yes).
+
+fever :-
+    ask('Do you have fever?').
+
+cough :-
+    ask('Do you have cough?').
+
+headache :-
+    ask('Do you have headache?').
+
+sneezing :-
+    ask('Do you have sneezing?').
+
+start :-
+    write('--- Medical Expert System ---'), nl,
+    (
+        disease(D)
+        ->
+        write('You may have: '),
+        write(D), nl
+        ;
+        write('Consult doctor.')
+    ).

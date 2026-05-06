@@ -1,0 +1,15 @@
+% Information Management Expert System
+
+info(student_records) :-
+    write('Store and manage student records').
+
+info(library_management) :-
+    write('Manage books and issue records').
+
+info(employee_records) :-
+    write('Maintain employee information').
+
+start :-
+    write('--- Information Management System ---'), nl,
+    write('Enter Query:'), nl,
+    write('Example: info(student_records).'), nl.

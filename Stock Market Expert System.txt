@@ -1,0 +1,15 @@
+% Stock Market Expert System
+
+market(rising) :-
+    write('Suggested action: Buy shares').
+
+market(falling) :-
+    write('Suggested action: Sell shares').
+
+market(stable) :-
+    write('Suggested action: Hold shares').
+
+start :-
+    write('--- Stock Market Expert System ---'), nl,
+    write('Example Queries:'), nl,
+    write('market(rising).'), nl.

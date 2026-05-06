@@ -1,0 +1,15 @@
+% Airline Scheduling Expert System
+
+flight(morning) :-
+    write('Schedule cargo loading').
+
+flight(evening) :-
+    write('Prepare passenger boarding').
+
+flight(night) :-
+    write('Perform maintenance checks').
+
+start :-
+    write('--- Airline Scheduling Expert System ---'), nl,
+    write('Example Queries:'), nl,
+    write('flight(morning).'), nl.

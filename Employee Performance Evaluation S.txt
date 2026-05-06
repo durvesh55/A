@@ -1,0 +1,15 @@
+% Employee Performance Evaluation System
+
+performance(excellent) :-
+    write('Eligible for promotion').
+
+performance(good) :-
+    write('Performance is satisfactory').
+
+performance(average) :-
+    write('Needs improvement').
+
+start :-
+    write('--- Employee Expert System ---'), nl,
+    write('Example Queries:'), nl,
+    write('performance(excellent).'), nl.
