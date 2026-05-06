@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class AirlineExpertSystem {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== Airline Scheduling Expert System ===");
+        System.out.println("1. Morning Flight");
+        System.out.println("2. Evening Flight");
+        System.out.println("3. Night Flight");
+
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+
+        if(choice == 1) {
+            System.out.println("Schedule cargo loading");
+        }
+        else if(choice == 2) {
+            System.out.println("Prepare passenger boarding");
+        }
+        else if(choice == 3) {
+            System.out.println("Perform maintenance checks");
+        }
+        else {
+            System.out.println("Invalid Choice");
+        }
+
+        sc.close();
+    }
+}
